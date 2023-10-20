@@ -46,15 +46,33 @@ The full dataset will be released after acceptance.
 
 Please download our trained models [here](https://drive.google.com/file/d/1dITE1CauVmh3lJcVklR9zuemmf7arJi1/view?usp=drive_link) and put it in the `DMSR` directory.
 
-For evaluation of CAMERA data,
+For evaluation of CAMERA data, run
 ```
-python demo.py --data val --model ./pretrained/camera_model.pth --result_dir ./results/camera
+python demo.py --data val --model ./pretrained/camera_model.pth --result_dir ./results/eval_camera
 ```
 
-For evaluation of REAL data,
+For evaluation of REAL data, run
 ```
-python demo.py --data real_test --model ./pretrained/real_model.pth --result_dir ./results/real
+python demo.py --data real_test --model ./pretrained/real_model.pth --result_dir ./results/eval_real
 ```
+
+You can find intermediate files and pose predictions drawn on images in the `<result_dir>` folder.
+
+
+## Evaluation
+
+To quantitatively evaluate estimated poses, run
+```
+python evaluate.py --result_dir ./results/eval_camera
+```
+or
+```
+python evaluate.py --result_dir ./results/eval_real
+```
+to get mAP scores for different metrics (i.e. 3D IoU, rotation error in degrees, and translation error in centimeters).
+
+
+We also provide processed files for fast verification of our results reported in the paper. Please download our processed files [here](https://drive.google.com/file/d/1JqcovPX5iy2VkyN2rHn4holbovqGORro/view?usp=sharing) and put it in the `DMSR` directory. Then, you can run the above commands to see the results shown in the terminal.
 
 
 ## Video
