@@ -282,10 +282,10 @@ def compute_3d_IoU(sRT_1, sRT_2, size_1, size_2, class_name_1, class_name_2, han
         noc_cube_2 = get_3d_bbox(size_2, 0)
         bbox_3d_2 = transform_coordinates_3d(noc_cube_2, sRT_2)
 
-        bbox_1_max = np.amax(bbox_3d_1, axis=0)
-        bbox_1_min = np.amin(bbox_3d_1, axis=0)
-        bbox_2_max = np.amax(bbox_3d_2, axis=0)
-        bbox_2_min = np.amin(bbox_3d_2, axis=0)
+        bbox_1_max = np.amax(bbox_3d_1, axis=1)
+        bbox_1_min = np.amin(bbox_3d_1, axis=1)
+        bbox_2_max = np.amax(bbox_3d_2, axis=1)
+        bbox_2_min = np.amin(bbox_3d_2, axis=1)
 
         overlap_min = np.maximum(bbox_1_min, bbox_2_min)
         overlap_max = np.minimum(bbox_1_max, bbox_2_max)
