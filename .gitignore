@@ -1,4 +1,8 @@
 pretrained/
-data/
+datasets/
 toy_dataset/
 results/
+checkpoints/
+build/
+dist/
+*.egg-info/

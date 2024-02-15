@@ -380,7 +380,7 @@ def annotate_test_data(data_dir):
 
 
 if __name__ == '__main__':
-    data_dir = '../data/NOCS'
+    data_dir = '../datasets/NOCS'
     # create list for all data
     create_img_list(data_dir)
     # annotate dataset and re-write valid data to list

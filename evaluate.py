@@ -18,7 +18,7 @@ from lib.utils import load_depth, get_bbox, draw_detections, compute_mAP
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--data', type=str, default='val', help='val, real_test')
-parser.add_argument('--data_dir', type=str, default='./data/NOCS', help='data directory')
+parser.add_argument('--data_dir', type=str, default='./datasets/NOCS', help='data directory')
 parser.add_argument('--model', type=str, default='./pretrained/camera_model.pth', help='resume from saved model')
 parser.add_argument('--result_dir', type=str, default='results/camera', help='result directory')
 parser.add_argument('--gpu', type=str, default='0', help='GPU to use')
