@@ -94,7 +94,7 @@ def detect():
 
         # load mask-rcnn detection results
         img_path_parsing = img_path.split('/')
-        mrcnn_path = os.path.join(opt.data_dir.replace('NOCS', 'mrcnn_results'), opt.data, 'results_{}_{}_{}.pkl'.format(
+        mrcnn_path = os.path.join(opt.data_dir.replace('NOCS', 'results/mrcnn_results'), opt.data, 'results_{}_{}_{}.pkl'.format(
             opt.data.split('_')[-1], img_path_parsing[-2], img_path_parsing[-1]))
         with open(mrcnn_path, 'rb') as f:
             mrcnn_result = cPickle.load(f)
