@@ -63,7 +63,7 @@ def train():
 
     # start training
     st_time = time.time()
-    train_steps = 4
+    train_steps = 4000
     global_step = train_steps * (opt.start_epoch - 1)
     n_decays = len(opt.decay_epoch)
 
