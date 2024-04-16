@@ -34,46 +34,82 @@ cd DMSR/pointnet2/pointnet2
 python setup.py install
 ```
 
-
-## Toy Dataset
-
-Please download our toy dataset [here](https://drive.google.com/file/d/11DPpQZ4UVMf-uLCRUkj4H8tMo5hAQPEn/view?usp=drive_link) and put it in the `DMSR` directory.
-
-The full dataset will be released after acceptance.
-
-
-## Run Demo
-
-Please download our trained models [here](https://drive.google.com/file/d/1dITE1CauVmh3lJcVklR9zuemmf7arJi1/view?usp=drive_link) and put it in the `DMSR` directory.
-
-For evaluation of CAMERA data, run
+Build nn_distance
 ```
-python demo.py --data val --model ./pretrained/camera_model.pth --result_dir ./results/eval_camera
+cd DMSR/lib/nn_distance
+python setup.py install
 ```
 
-For evaluation of REAL data, run
+## Dataset
+
+Please follow the instructions in [object-deformnet](https://github.com/mentian/object-deformnet?tab=readme-ov-file#datasets) to prepare the NOCS dataset. The segmentation results from Mask R-CNN and predictions of NOCS can also be found [here](https://github.com/mentian/object-deformnet/tree/master?tab=readme-ov-file#evaluation).
+
+**Important**: delete `obj_models/val/02876657/d3b53f56b4a7b3b3c9f016d57db96408` before preprocessing the datasets, otherwise it will cause errors. 
+
+The extended dataset containing depth and normal predictions can be downloaded [here](https://drive.google.com/drive/folders/1Hna4DJImIvfIo47Hm0fiBMqh3KD5lIOQ?usp=sharing). Please use the following command to merge the files in each folder after downloading:
 ```
-python demo.py --data real_test --model ./pretrained/real_model.pth --result_dir ./results/eval_real
+cat <folder_name>* > <folder_name>.tar.gz
+tar xzvf <folder_name>.tar.gz
 ```
 
-You can find intermediate files and pose predictions drawn on images in the `<result_dir>` folder.
-
-
-## Evaluation
-
-To quantitatively evaluate estimated poses, run
+Now the `DMSR/datasets` directory is organized as follows:
 ```
-python evaluate.py --result_dir ./results/eval_camera
+datasets
+├── NOCS
+│   ├── CAMERA
+│   │   ├── train
+│   │   └── val
+│   ├── Real
+│   │   ├── train
+│   │   └── test
+│   ├── gts
+│   │   ├── val
+│   │   └── real_test
+│   └── obj_models
+│       ├── train
+│       ├── val
+│       ├── real_train
+│       └── real_test
+├── dpt_output
+│   ├── CAMERA
+│   │   ├── train
+│   │   └── val
+│   └── Real
+│       ├── train
+│       └── test
+└── results
+    ├── mrcnn_results
+    │   ├── real_test
+    │   └── val
+    └── nocs_results
+        ├── real_test
+        └── val
+```
+
+## Training
+```
+python train.py --dataset CAMERA --result_dir checkpoints/camera
 ```
 or
 ```
-python evaluate.py --result_dir ./results/eval_real
+python train.py --dataset CAMERA+Real --result_dir checkpoints/real
 ```
-to get mAP scores for different metrics (i.e. 3D IoU, rotation error in degrees, and translation error in centimeters).
 
+## Evaluation
 
-We also provide processed files for fast verification of our results reported in the paper. Please download our processed files [here](https://drive.google.com/file/d/1JqcovPX5iy2VkyN2rHn4holbovqGORro/view?usp=sharing) and put it in the `DMSR` directory. Then, you can run the above commands to see the results shown in the terminal.
+Please download our trained models [here](https://drive.google.com/file/d/1dITE1CauVmh3lJcVklR9zuemmf7arJi1/view?usp=drive_link) and put it in the `DMSR/pretrained` directory.
 
+To evaluate CAMERA data, run
+```
+python evaluate.py --data val --model ./pretrained/camera_model.pth --result_dir ./results/eval_camera
+```
+
+To evaluate REAL data, run
+```
+python evaluate.py --data real_test --model ./pretrained/real_model.pth --result_dir ./results/eval_real
+```
+
+We also provide processed files for fast verification of our results reported in the paper. Please download our processed files [here](https://drive.google.com/file/d/1JqcovPX5iy2VkyN2rHn4holbovqGORro/view?usp=sharing) and put it in the `DMSR/results` directory. Then, you can run the above commands to see the results shown in the terminal.
 
 ## Video
 
